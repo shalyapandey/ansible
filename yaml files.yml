@@ -61,25 +61,6 @@ yaml files
 ...
 
 
----
- - name: install required packages
-   hosts: localhost
-   vars:
-     packages:
-       - httpd
-       - binutils
-       - glibc
-       - ksh
-       - libaio
-       - libXest
-       - gcc
-       - make
-       - 
-       
- register : myoutput
-       
- - debug: var-myoutput
- 
  
  
  
