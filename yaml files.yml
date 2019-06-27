@@ -1,0 +1,86 @@
+yaml files
+++++++++++
+
+---
+ - name: Print list of fruits
+   hosts: localhost
+   vars:
+     fruits:
+       - Apple
+       - Banana
+       - Grapes
+       - Orange
+   tasks:
+     - debug: msg="{{item}}"
+       with_items: '{{fruits}}'
+...
+
+===============================================
+
+---
+- hosts: web #group name from inventory
+  vars:
+    pack_name: httpd
+    serv_name: httpd
+
+  tasks:
+    - name: Install {{ pack_name }}
+      yum: pkg={{ pack_name }} state=installed
+    - name: Start {{serv_name}}
+      service: name={{serv_name}} state=started
+...
+
+
+---
+  - hosts: web
+    tasks:
+      - name: add a list of users
+        user: name={{item}} state=present
+        with_items:
+          - user1
+          - user2
+          - user3
+          
+          
+...
+        
+---
+  - hosts: web
+    vars:    
+      pack_name: httpd
+      serv_name: httpd      
+      
+    vars_prompt:    
+      - name: web_pass      
+        prompt: Web Server Password:    
+    tasks:    
+      - name: Install {{ pack_name }}      
+        yum: pkg={{ pack_name }} state=installed    
+      - name: Start {{ serv_name }}      
+        service: name={{ serv_name }} state=started
+...
+
+
+---
+ - name: install required packages
+   hosts: localhost
+   vars:
+     packages:
+       - httpd
+       - binutils
+       - glibc
+       - ksh
+       - libaio
+       - libXest
+       - gcc
+       - make
+       - 
+       
+ register : myoutput
+       
+ - debug: var-myoutput
+ 
+ 
+ 
+ 
+ 
